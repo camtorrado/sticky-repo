@@ -11,7 +11,7 @@ const Footer = () => {
             <div className="footerText">
               <h2>Contactanos</h2>
               <p>Norte de Santander, Colombia</p>
-              <p>betttime09@gmail.com</p>
+              <p><a href="mailto:betttime09@gmail.com">betttime09@gmail.com</a></p>
               <p>
               ©{new Date().getFullYear()} Sticky by BetTime - All Rights
               Reserved
