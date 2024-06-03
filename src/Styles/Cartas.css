@@ -1,0 +1,41 @@
+.logo{
+    padding: 18px;
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 3px solid var(--mainBlue);
+}
+.logo svg{
+    color: var(--mainBlue);
+    width: 40px;
+    height: 40px;
+}
+.contenido-carta{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 20px;
+    padding: 15px 35px;
+    border-radius: 10px;
+    width: 385px;
+    min-height: 195px;
+    background-color: #fff;
+}
+.btnComprar:hover{
+    transform: scale(1.1);
+}
+.sub{
+    color: var(--mainBlue);
+}
+.btnComprar{
+    background-color: var(--mainBlue);
+    color: #fff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: all .3s;
+}
+.texto{
+  font-weight: normal;
+  --tw-text-opacity: 1;
+  color: rgb(var(--mainGrey) / var(--tw-text-opacity));
+}

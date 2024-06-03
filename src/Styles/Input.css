@@ -1,0 +1,59 @@
+.input{
+    padding: 10px;
+    width: 100%;
+    outline: none;
+    border: none;
+    border:  2px solid var(--mainBlue);
+    display: flex;
+    background: none;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    color: #000;
+    border-radius: 10px;
+}
+.input:focus{
+    border-radius: 10px;
+}
+.input.incorrecto:focus{
+    border: 2px solid red;
+    background-color: rgba(255, 0, 0, 0.203);
+}
+.input.correcto:focus{
+    border: 2px solid rgb(36, 170, 36);
+    background-color: rgba(36, 170, 36, 0.203);
+}
+
+.contenedor-input{
+    margin: 0 45px 15px 45px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    
+}
+.iconoMostrar{
+    position: absolute;
+    right: 10px;
+    font-size: 20px !important;
+    top: 50%;
+    transform: translateY(-0%);
+    display: block;
+}
+.iconoMostrar.correcto{
+    color: rgb(36, 170, 36);
+}
+.iconoMostrar.incorrecto{
+    color: red;
+}
+
+label{
+    color: #000;
+}
+.input::placeholder{
+    color: var(--mainGrey);
+}
+
+@media  only screen and (max-width: 700px) {
+    .contenedor-input{
+        margin: 0 10px;
+    }
+}

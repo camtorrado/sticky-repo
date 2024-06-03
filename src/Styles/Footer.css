@@ -1,0 +1,33 @@
+.footer-middle {
+    background: var(--mainDark);
+    padding-top: 3rem;
+    color: var(--mainWhite);
+  }
+  .footer-bottom {
+    padding-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  ul li a {
+    color: var(--mainGrey);
+    text-decoration: none;
+  }
+  ul li a:hover {
+    color: var(--mainLigthGrey);
+  }
+  .logoFooter {
+    width: 180px;
+    height: 150px;
+    
+  }
+  .footerText {
+    width: 600px;
+  }
+  .footerText p {
+    line-height: 12px;
+    font-size: 18px;
+  }
+  .contenedorLogo{
+    display: flex;
+    align-items: center;
+  }
