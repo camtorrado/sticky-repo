@@ -39,3 +39,8 @@
   --tw-text-opacity: 1;
   color: rgb(var(--mainGrey) / var(--tw-text-opacity));
 }
+@media (max-width: 705px) {
+    .contenido-carta {
+      width: 400px;      
+    }
+  }

@@ -2,6 +2,7 @@
     background: var(--mainDark);
     padding-top: 3rem;
     color: var(--mainWhite);
+    
   }
   .footer-bottom {
     padding-bottom: 2rem;
@@ -18,16 +19,41 @@
   .logoFooter {
     width: 180px;
     height: 150px;
-    
+    max-width: 100%;
   }
   .footerText {
-    width: 600px;
+    width: 50%;
+  }
+  .container{
+    overflow: hidden;
+    
   }
   .footerText p {
     line-height: 12px;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 400;
+    
   }
   .contenedorLogo{
     display: flex;
     align-items: center;
+  }
+  
+  @media (max-width: 992px) {
+    .footerText p {
+      line-height: 15px;      
+    }
+  }
+  @media (max-width: 425px) {
+    .conRow{
+      display: flex;
+      flex-direction: column;
+    }
+    .contenedorLogo{
+      display: flex;
+      justify-content: center;
+    }
+    .footerText{
+      width: 100%;
+    }
   }

@@ -29,12 +29,13 @@ function App() {
         </div>
         <div className="section">
           <h1 className="text-center fs-1 ">¡Personaliza tu mundo!</h1>
-          <p className="text-center fs-5 parrafo">
+          <p id="stickers" className="text-center fs-5 parrafo">
             Aquí encontrarás una amplia variedad de diseños únicos y creativos,
             perfectos para personalizar tus objetos y expresar tu estilo.
           </p>
         </div>
       </div>
+      <div  className="m-2"></div>
       <div className="section-card d-flex flex-wrap justify-content-center px-0 cards">
         <Cartas
           cantidad={3}
@@ -56,7 +57,9 @@ function App() {
         estadoFormulario={estadoFormulario}
         setEstadoFormulario={setEstadoFormulario}
       />
-      <Footer />
+      <div id="contacto">
+        <Footer  />
+      </div>
     </>
   );
 }

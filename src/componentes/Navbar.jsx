@@ -12,10 +12,10 @@ const Navbar = () => {
               <p className="name text-center">Sticky</p>
             </a>
             <div className="navbar-nav fw-bold">
-              <a className="nav-link active" href="#">
+              <a className="nav-link active" href="#contacto">
                 Contacto
               </a>
-              <a className="nav-link btn btn-dark" href="#">
+              <a className="nav-link btn btn-dark" href="#stickers">
                 Stickers
               </a>
             </div>
