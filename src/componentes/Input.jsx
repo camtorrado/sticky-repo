@@ -12,6 +12,9 @@ function Input({ tipo, dato, setFormValid, setValue }) {
     if (valor === inputValue) {
       return;
     }
+    if (tipo === "text" && /\d/.test(valor)) {
+      return;
+    }
     setInputValue(valor);
     if (valor.trim() !== "") {
       let esValido = false;

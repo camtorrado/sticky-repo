@@ -8,9 +8,14 @@ import Navbar from "./componentes/Navbar";
 import Cartas from "./componentes/Cartas";
 import Footer from "./componentes/Footer";
 import Formulario from "./componentes/Formulario";
+import MetodoPago from "./componentes/MetodoPago";
 
 function App() {
   const [estadoFormulario, setEstadoFormulario] = useState(false);
+  const [estadoMetodo, setEstadoMetodo] = useState(false)
+  const [orderID, setOrderID] = useState("");
+  const [precioProceso, setPrecioProceso] = useState(0);
+  const [hash, setHash] = useState("");
 
   return (
     <>
@@ -38,24 +43,46 @@ function App() {
       <div  className="m-2"></div>
       <div className="section-card d-flex flex-wrap justify-content-center px-0 cards">
         <Cartas
-          cantidad={3}
+          cantidad={2}
+          precio={4000}
           estadoFormulario={estadoFormulario}
           setEstadoFormulario={setEstadoFormulario}
+          setOrderID={setOrderID}
+          setPrecioProceso={setPrecioProceso}
+          setHash={setHash}
         />
         <Cartas
           cantidad={5}
+          precio={10000}
           estadoFormulario={estadoFormulario}
           setEstadoFormulario={setEstadoFormulario}
+          setOrderID={setOrderID}
+          setPrecioProceso={setPrecioProceso}
+          setHash={setHash}
         />
         <Cartas
           cantidad={10}
+          precio={20000}
           estadoFormulario={estadoFormulario}
           setEstadoFormulario={setEstadoFormulario}
+          setOrderID={setOrderID}
+          setPrecioProceso={setPrecioProceso}
+          setHash={setHash}
         />
       </div>
       <Formulario
         estadoFormulario={estadoFormulario}
         setEstadoFormulario={setEstadoFormulario}
+        estadoMetodo={estadoMetodo}
+        setEstadoMetodo={setEstadoMetodo}
+        orderID={orderID}
+      />
+      <MetodoPago 
+        estadoMetodo={estadoMetodo}
+        setEstadoMetodo={setEstadoMetodo}
+        orderID={orderID}
+        precioProceso={precioProceso}
+        hash={hash}
       />
       <div id="contacto">
         <Footer  />

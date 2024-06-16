@@ -2,11 +2,34 @@
 import PropTypes from "prop-types";
 import "../Styles/Cartas.css";
 
-const Cartas = ({ cantidad, estadoFormulario, setEstadoFormulario }) => {
+const Cartas = ({ cantidad, precio, estadoFormulario, setEstadoFormulario, setOrderID, setPrecioProceso, setHash }) => {
+  
+  const handleSubmit = async precio => {
+    setPrecioProceso(precio)
+    try{
+      let config = {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          amount: precio,
+          currency: "COP"
+        })
+      }
+      let res = await fetch("https://sticky-api-ten.vercel.app/api/orders", config)
+      let json = await res.json()
+
+      setOrderID(json.orderId);
+      setHash(json.hash)
+    }catch(error){
+      console.log(error)
+    }
+  }
   return (
     <div
       className="contenido-carta d-flex flex-column justify-content-center align-items-center"
-      
     >
       <div className="logo">
         <svg
@@ -26,7 +49,7 @@ const Cartas = ({ cantidad, estadoFormulario, setEstadoFormulario }) => {
         para obtener {cantidad} stickers de alta calidad.
       </p>
       <div>
-        <button className="btnComprar" onClick={() => setEstadoFormulario(!estadoFormulario)}>Comprar</button>
+        <button className="btnComprar" onClick={() => {setEstadoFormulario(!estadoFormulario); handleSubmit(precio)}}>Comprar</button>
       </div>
     </div>
   );
@@ -35,6 +58,10 @@ Cartas.propTypes = {
   estadoFormulario: PropTypes.bool.isRequired,
   setEstadoFormulario: PropTypes.func.isRequired,
   cantidad: PropTypes.number.isRequired,
+  precio: PropTypes.number.isRequired,
+  setOrderID: PropTypes.func.isRequired,
+  setPrecioProceso: PropTypes.func.isRequired,
+  setHash: PropTypes.func.isRequired
 };
 
 export default Cartas;
