@@ -26,7 +26,7 @@ const LoadBoldPaymentButtonScript = ({ orderID, precioProceso, hash }) => {
             data-order-id={orderID}
             data-currency="COP"
             data-amount={precioProceso}
-            data-api-key={import.meta.env.TEST_IDENTITY_KEY}
+            data-api-key={process.env.TEST_IDENTITY_KEY}
             data-integrity-signature={hash}
             data-redirection-url="https://micomercio.com/pagos/resultado"
           ></script>
