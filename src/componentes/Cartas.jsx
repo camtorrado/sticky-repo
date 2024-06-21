@@ -2,7 +2,7 @@
 import PropTypes from "prop-types";
 import "../Styles/Cartas.css";
 
-const Cartas = ({ cantidad, precio, estadoFormulario, setEstadoFormulario, setOrderID, setPrecioProceso, setHash }) => {
+const Cartas = ({ cantidad, precio, estadoFormulario, setEstadoFormulario, setOrderID, setPrecioProceso, setHash, setCantidadSeleccionada }) => {
   
   const handleSubmit = async precio => {
     setPrecioProceso(precio)
@@ -21,10 +21,11 @@ const Cartas = ({ cantidad, precio, estadoFormulario, setEstadoFormulario, setOr
       let res = await fetch("https://sticky-api-ten.vercel.app/api/orders", config)
       let json = await res.json()
 
-      setOrderID(json.orderId);
+      setCantidadSeleccionada(cantidad)
+      setOrderID(json.orderId)
       setHash(json.hash)
     }catch(error){
-      console.log(error)
+      console.error(error)
     }
   }
   return (

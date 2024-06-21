@@ -6,7 +6,6 @@ import "../Styles/BtnPago.css"
 const LoadBoldPaymentButtonScript = ({ orderID, precioProceso, hash }) => {
     useEffect(() => {
         // Inyecta el script en el head del documento
-        
         const script = document.createElement('script');
         script.src = "https://checkout.bold.co/library/boldPaymentButton.js";
         script.async = true;
@@ -28,7 +27,7 @@ const LoadBoldPaymentButtonScript = ({ orderID, precioProceso, hash }) => {
             data-amount={precioProceso}
             data-api-key={process.env.TEST_IDENTITY_KEY}
             data-integrity-signature={hash}
-            data-redirection-url="https://sticky-repo.vercel.app/"
+            data-redirection-url="http://localhost:5173/rest"
           ></script>
         </button>
       );

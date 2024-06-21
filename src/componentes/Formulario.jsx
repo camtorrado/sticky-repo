@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "../Styles/Formulario.css";
 import Input from "./Input";
 
-const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEstadoMetodo, orderID }) => {
+const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEstadoMetodo, orderID, cantidad }) => {
   const [nombreValido, setNombreValido] = useState(false);
   const [apellidoValido, setApellidoValido] = useState(false);
   const [emailValido, setEmailValido] = useState(false);
@@ -43,16 +43,17 @@ const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEs
           city: ciudad,
           email: email,
           orderId: orderID,
-          // quantity: 2
+          quantity: cantidad
         })
       }
-      let res = await fetch("https://sticky-api-ten.vercel.app/api/people", config)
-      let json = await res.json();
-
-      console.log(json)
+      
+      await fetch("https://sticky-api-ten.vercel.app/api/people", config)
+      // let res = await fetch("https://sticky-api-ten.vercel.app/api/people", config)
+      // let json = await res.json();
+      // console.log(json)
 
     }catch(error){
-      console.log(error)
+      console.error(error)
     }
   }
 
