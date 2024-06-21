@@ -42,7 +42,8 @@ const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEs
           phoneNumber: numero,
           city: ciudad,
           email: email,
-          orderId: orderID
+          orderId: orderID,
+          // quantity: 2
         })
       }
       let res = await fetch("https://sticky-api-ten.vercel.app/api/people", config)

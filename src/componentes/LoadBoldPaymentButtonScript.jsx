@@ -28,7 +28,7 @@ const LoadBoldPaymentButtonScript = ({ orderID, precioProceso, hash }) => {
             data-amount={precioProceso}
             data-api-key={process.env.TEST_IDENTITY_KEY}
             data-integrity-signature={hash}
-            data-redirection-url="https://micomercio.com/pagos/resultado"
+            data-redirection-url="https://sticky-repo.vercel.app/"
           ></script>
         </button>
       );
