@@ -49,8 +49,9 @@ const Cartas = ({ cantidad, precio, estadoFormulario, setEstadoFormulario, setOr
         ¿Estás buscando algunos stickers para ti? Esta es una gran oportunidad
         para obtener {cantidad} stickers de alta calidad.
       </p>
-      <div>
+      <div className="d-flex align-items-center">
         <button className="btnComprar" onClick={() => {setEstadoFormulario(!estadoFormulario); handleSubmit(precio)}}>Comprar</button>
+        <p className="precio">${precio}</p>
       </div>
     </div>
   );

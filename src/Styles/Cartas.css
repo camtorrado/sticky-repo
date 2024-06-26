@@ -35,6 +35,14 @@
     margin-bottom: 20px;
     transition: all .3s;
 }
+.precio{
+    margin-left: 10px;
+    background-color: #ececec;
+    padding: .25rem 1rem;
+    border-radius: 100vmax;
+
+    font-weight: 500;
+}
 .texto{
   font-weight: normal;
   --tw-text-opacity: 1;
