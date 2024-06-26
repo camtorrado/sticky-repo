@@ -21,11 +21,11 @@ const PaymentResult = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   if (seconds === 0) {
-  //     navigate("/"); // Redirigir al usuario a la ruta principal ("/") cuando los segundos lleguen a 0
-  //   }
-  // }, [seconds]);
+  useEffect(() => {
+    if (seconds === 0) {
+      navigate("/"); // Redirigir al usuario a la ruta principal ("/") cuando los segundos lleguen a 0
+    }
+  }, [seconds]);
 
   useEffect(() => {
     const fetchOrderData = async (orderId) => {
