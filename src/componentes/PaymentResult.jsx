@@ -10,6 +10,7 @@ const PaymentResult = () => {
   const [orderData, setOrderData] = useState(null);
   const [codesData, setCodesData] = useState(null);
   const [error, setError] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -115,6 +116,7 @@ const PaymentResult = () => {
 
       if (status === "approved") {
         // console.log(`Pago aprobado. Order ID: ${orderId}`);
+        setIsProcessing(true);
         setTxStatus("approved");
 
         const orderData = await fetchOrderData(orderId);
@@ -130,8 +132,10 @@ const PaymentResult = () => {
         }
 
         localStorage.setItem(`transaction_${orderId}`, "processed");
+        setIsProcessing(false);
       } else {
         // console.log(`Pago rechazado. Order ID: ${orderId}`);
+        setIsProcessing(true);
         setTxStatus("rejected");
 
         const orderData = await fetchOrderData(orderId);
@@ -141,11 +145,13 @@ const PaymentResult = () => {
           // console.log("Quantity:", orderData.quantity);
           await deleteOrderData(orderData.id);
         }
+
+        setIsProcessing(false);
       }
     };
 
     handleFetches();
-  }, [location.search]); // Utiliza location.search en lugar de location para evitar re-renderizaciones innecesarias
+  }, []); // Utiliza location.search en lugar de location para evitar re-renderizaciones innecesarias
 
   return (
     <div className="fondo">
