@@ -1,9 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap';
 import imagen from './imagenes/imagen.png';
+import bike from './imagenes/bike.png';
 import Navbar from './componentes/Navbar';
 import Cartas from './componentes/Cartas';
 import Footer from './componentes/Footer';
@@ -19,6 +20,20 @@ function App() {
   const [precioProceso, setPrecioProceso] = useState(0);
   const [hash, setHash] = useState('');
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(0);
+
+  useEffect(() => {
+    // Deshabilitar el menú contextual
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
+
+    document.addEventListener('contextmenu', handleContextMenu);
+
+    // Limpiar el evento al desmontar el componente
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
 
   return (
     <Router>
@@ -38,7 +53,7 @@ function App() {
                 cómo pequeños detalles pueden transformar tu mundo.
               </p>
               <div className="contenedor-imagen">
-                <img src={imagen} alt="" />
+                <img src={bike} alt="" />
               </div>
               <div className="section">
                 <h1 className="text-center fs-1 ">¡Personaliza tu mundo!</h1>
