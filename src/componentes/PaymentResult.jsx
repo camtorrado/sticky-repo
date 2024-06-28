@@ -38,7 +38,7 @@ const PaymentResult = () => {
         return data;
       } catch (error) {
         setError(error);
-        console.error("Error fetching order data:", error);
+        // console.error("Error fetching order data:", error);
       }
     };
 
@@ -49,11 +49,11 @@ const PaymentResult = () => {
         );
         const data = await response.json();
         setCodesData(data.codes);
-        console.log("Codes data:", data.codes);
+        // console.log("Codes data:", data.codes);
         return data.codes;
       } catch (error) {
         setError(error);
-        console.error("Error fetching codes data:", error);
+        // console.error("Error fetching codes data:", error);
       }
     };
 
@@ -74,11 +74,11 @@ const PaymentResult = () => {
           }
         );
         const data = await response.json();
-        console.log("Post records data response:", data);
+        // console.log("Post records data response:", data);
         return data;
       } catch (error) {
         setError(error);
-        console.error("Error posting records data:", error);
+        // console.error("Error posting records data:", error);
       }
     };
 
@@ -91,11 +91,11 @@ const PaymentResult = () => {
           }
         );
         const data = await response.json();
-        console.log("Delete order data response:", data);
+        // console.log("Delete order data response:", data);
         return data;
       } catch (error) {
         setError(error);
-        console.error("Error deleting order data:", error);
+        // console.error("Error deleting order data:", error);
       }
     };
 
@@ -104,40 +104,43 @@ const PaymentResult = () => {
       const orderId = searchParams.get("bold-order-id");
       const status = searchParams.get("bold-tx-status");
 
+      if (localStorage.getItem(`transaction_${orderId}`) === "processed") {
+        navigate("/");
+        return;
+      }
+
       if (!orderId || !status) {
         return; // No se realiza ninguna acción si los parámetros están vacíos
       }
 
       if (status === "approved") {
-        console.log(`Pago aprobado. Order ID: ${orderId}`);
+        // console.log(`Pago aprobado. Order ID: ${orderId}`);
         setTxStatus("approved");
 
         const orderData = await fetchOrderData(orderId);
         if (orderData) {
-          console.log("Order data:", orderData);
-          console.log("Order ID:", orderData.id);
-          console.log("Quantity:", orderData.quantity);
+          // console.log("Order data:", orderData);
+          // console.log("Order ID:", orderData.id);
+          // console.log("Quantity:", orderData.quantity);
 
           const codes = await fetchCodesData(orderData.quantity);
           if (codes) {
             await postRecordsData(orderData.id, codes);
           }
         }
-      } else if (status === "rejected") {
-        console.log(`Pago rechazado. Order ID: ${orderId}`);
+
+        localStorage.setItem(`transaction_${orderId}`, "processed");
+      } else {
+        // console.log(`Pago rechazado. Order ID: ${orderId}`);
         setTxStatus("rejected");
 
         const orderData = await fetchOrderData(orderId);
         if (orderData) {
-          console.log("Order data:", orderData);
-          console.log("Order ID:", orderData.id);
-          console.log("Quantity:", orderData.quantity);
-
+          // console.log("Order data:", orderData);
+          // console.log("Order ID:", orderData.id);
+          // console.log("Quantity:", orderData.quantity);
           await deleteOrderData(orderData.id);
         }
-      } else {
-        console.log(`Estado de transacción desconocido: ${status}`);
-        setTxStatus("unknown");
       }
     };
 
@@ -148,91 +151,96 @@ const PaymentResult = () => {
     <div className="fondo">
       {txStatus === "approved" && orderData && codesData && (
         <>
-        <h1 className="text-center titulo-resultado">Resultado del Pago</h1>
-        <div className="contenedor-aprovado">
-          <p className="text-center fs-3">
-            ¡Tu pago ha sido aprobado!{" "}
-            <span >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-patch-check-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708" />
-              </svg>
-            </span>
-          </p>
-          <div className="text-center">
-            <p>ID de Orden: {orderData.id}</p>
-            <p className="fs-5">Cantidad: {orderData.quantity}</p>
-            <h2>Códigos</h2>
-            <div className="contenedor-codigos">
-              {codesData.map((code, index) => (
-                <p className="codigos" key={index}>
-                  {code}
-                </p>
-              ))}
+          <h1 className="text-center titulo-resultado">Resultado del Pago</h1>
+          <div className="contenedor-aprovado">
+            <p className="text-center fs-3">
+              ¡Tu pago ha sido aprobado!{" "}
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-patch-check-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708" />
+                </svg>
+              </span>
+            </p>
+            <div className="text-center">
+              <p>ID de Orden: {orderData.id}</p>
+              <p className="fs-5">Cantidad: {orderData.quantity}</p>
+              <h2>Códigos</h2>
+              <div className="contenedor-codigos">
+                {codesData.map((code, index) => (
+                  <p className="codigos" key={index}>
+                    {code}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="footer-resultado">
-        <p className="text-center my-4">
-          Este componente redirigirá automáticamente a la página principal
-          después de {seconds} segundos.
-        </p>
-        <button className="btn-volver" onClick={() => navigate("/")}>
-          Volver ahora
-        </button>
-      </div>
+          <div className="footer-resultado">
+            <p className="text-center my-4">
+              Este componente redirigirá automáticamente a la página principal
+              después de {seconds} segundos.
+            </p>
+            <button className="btn-volver" onClick={() => navigate("/")}>
+              Volver ahora
+            </button>
+          </div>
         </>
       )}
-      {txStatus === "rejected" && (
+      {txStatus !== "approved" && (
         <>
-        <h1 className="text-center titulo-resultado">Resultado del Pago</h1>
-        <div className="contenedor-aprovado">
-          <p className="fs-3 text-center">
-            El pago no ha sido aprobado {""}
-            <span className="icon-cancel">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-x-circle-fill"
-                viewBox="0 0 16 16"
-              >
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
-              </svg>
-            </span>
-          </p>
-          <p className="text-center">Por favor, verifica la información de tu tarjeta de crédito o inténtalo nuevamente más tarde.</p>
-        <p>Otras opciones:</p>
-        <ul>
-            <li>Revisa tu cuenta bancaria para asegurarte de tener suficiente saldo.</li>
-            <li>Verifica que los datos de tu tarjeta sean correctos.</li>
-            <li>Inténtalo nuevamente más tarde o con otro método de pago.</li>
-        </ul>
-        </div>
-        <div className="footer-resultado">
-        <p className="text-center my-4">
-          Este componente redirigirá automáticamente a la página principal
-          después de {seconds} segundos.
-        </p>
-        <button className="btn-volver" onClick={() => navigate("/")}>
-          Volver ahora
-        </button>
-      </div>
-      </>
+          <h1 className="text-center titulo-resultado">Resultado del Pago</h1>
+          <div className="contenedor-aprovado">
+            <p className="fs-3 text-center">
+              El pago no ha sido aprobado {""}
+              <span className="icon-cancel">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-x-circle-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                </svg>
+              </span>
+            </p>
+            <p className="text-center">
+              Por favor, verifica la información de tu tarjeta de crédito o
+              inténtalo nuevamente más tarde.
+            </p>
+            <p>Otras opciones:</p>
+            <ul>
+              <li>
+                Revisa tu cuenta bancaria para asegurarte de tener suficiente
+                saldo.
+              </li>
+              <li>Verifica que los datos de tu tarjeta sean correctos.</li>
+              <li>Inténtalo nuevamente más tarde o con otro método de pago.</li>
+            </ul>
+          </div>
+          <div className="footer-resultado">
+            <p className="text-center my-4">
+              Este componente redirigirá automáticamente a la página principal
+              después de {seconds} segundos.
+            </p>
+            <button className="btn-volver" onClick={() => navigate("/")}>
+              Volver ahora
+            </button>
+          </div>
+        </>
       )}
       {error && (
         <div>
           <p>Error: {error.message}</p>
         </div>
       )}
-      
     </div>
   );
 };

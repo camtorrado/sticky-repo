@@ -3,8 +3,13 @@ import PropTypes from "prop-types";
 import "../Styles/Formulario.css";
 import LoadBoldPaymentButtonScript from "./LoadBoldPaymentButtonScript";
 
-const MetodoPago = ({ estadoMetodo, setEstadoMetodo, orderID, precioProceso, hash }) => {
-
+const MetodoPago = ({
+  estadoMetodo,
+  setEstadoMetodo,
+  orderID,
+  precioProceso,
+  hash,
+}) => {
   return (
     <>
       {estadoMetodo && (
@@ -17,10 +22,14 @@ const MetodoPago = ({ estadoMetodo, setEstadoMetodo, orderID, precioProceso, has
               <i className="fas fa-times fw-bold"></i>
             </button>
             <h2 className="titulo-formato text-center text-primary my-4">
-                Metodo de pago
+              Metodo de pago
             </h2>
             <div className="d-flex justify-content-center">
-                <LoadBoldPaymentButtonScript orderID={orderID} precioProceso={precioProceso} hash={hash} />
+              <LoadBoldPaymentButtonScript
+                orderID={orderID}
+                precioProceso={precioProceso}
+                hash={hash}
+              />
             </div>
           </div>
         </div>
@@ -34,7 +43,7 @@ MetodoPago.propTypes = {
   setEstadoMetodo: PropTypes.func.isRequired,
   orderID: PropTypes.string.isRequired,
   precioProceso: PropTypes.number.isRequired,
-  hash: PropTypes.string.isRequired
+  hash: PropTypes.string.isRequired,
 };
 
 export default MetodoPago;

@@ -15,7 +15,7 @@ function Input({ tipo, dato, setFormValid, setValue }) {
     if (tipo === "text" && /\d/.test(valor)) {
       return;
     }
-    if(valor===""){
+    if (valor === "") {
       setValidationPassed(false);
     }
     setInputValue(valor);
@@ -23,7 +23,10 @@ function Input({ tipo, dato, setFormValid, setValue }) {
       let esValido = false;
       switch (tipo) {
         case "text":
-          esValido = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g.test(valor) && valor.trim().length >= 3;
+          esValido =
+            /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g.test(
+              valor
+            ) && valor.trim().length >= 3;
           break;
         case "number":
           esValido = /^\d{10,}$/.test(valor);

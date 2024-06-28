@@ -25,7 +25,7 @@ const Cartas = ({ cantidad, precio, estadoFormulario, setEstadoFormulario, setOr
       setOrderID(json.orderId)
       setHash(json.hash)
     }catch(error){
-      console.error(error)
+      // console.error(error)
     }
   }
   return (

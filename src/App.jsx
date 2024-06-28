@@ -10,6 +10,7 @@ import Footer from './componentes/Footer';
 import Formulario from './componentes/Formulario';
 import MetodoPago from './componentes/MetodoPago';
 import PaymentResult from './componentes/PaymentResult';
+import WhatsAppButton from './componentes/WhatsAppButton';
 
 function App() {
   const [estadoFormulario, setEstadoFormulario] = useState(false);
@@ -25,6 +26,7 @@ function App() {
         <Route path="/rest" element={<PaymentResult />} />
         <Route path="/" element={
           <>
+            <WhatsAppButton />
             <Navbar />
             <div className="contenedor1">
               <h1 className="text-center titulo">

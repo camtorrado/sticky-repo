@@ -4,7 +4,14 @@ import PropTypes from "prop-types";
 import "../Styles/Formulario.css";
 import Input from "./Input";
 
-const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEstadoMetodo, orderID, cantidad }) => {
+const Formulario = ({
+  estadoFormulario,
+  setEstadoFormulario,
+  estadoMetodo,
+  setEstadoMetodo,
+  orderID,
+  cantidad,
+}) => {
   const [nombreValido, setNombreValido] = useState(false);
   const [apellidoValido, setApellidoValido] = useState(false);
   const [emailValido, setEmailValido] = useState(false);
@@ -19,22 +26,27 @@ const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEs
 
   const validarEnvio = (event) => {
     event.preventDefault();
-    if (nombreValido && apellidoValido && ciudadValido && emailValido && numeroValido) {
+    if (
+      nombreValido &&
+      apellidoValido &&
+      ciudadValido &&
+      emailValido &&
+      numeroValido
+    ) {
       setEstadoMetodo(!estadoMetodo);
       handleSubmit();
     } else {
       alert("Por favor, complete todos los campos correctamente.");
     }
   };
-  
 
   const handleSubmit = async () => {
-    try{
+    try {
       let config = {
         method: "POST",
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           firstName: nombre,
@@ -43,19 +55,18 @@ const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEs
           city: ciudad,
           email: email,
           orderId: orderID,
-          quantity: cantidad
-        })
-      }
-      
-      await fetch("https://sticky-api-ten.vercel.app/api/people", config)
+          quantity: cantidad,
+        }),
+      };
+
+      await fetch("https://sticky-api-ten.vercel.app/api/people", config);
       // let res = await fetch("https://sticky-api-ten.vercel.app/api/people", config)
       // let json = await res.json();
       // console.log(json)
-
-    }catch(error){
-      console.error(error)
+    } catch (error) {
+      // console.error(error)
     }
-  }
+  };
 
   return (
     <>
@@ -109,10 +120,7 @@ const Formulario = ({ estadoFormulario, setEstadoFormulario, estadoMetodo, setEs
                 >
                   Cancelar
                 </button>
-                <button
-                  className="pagar"
-                  type="submit"
-                >
+                <button className="pagar" type="submit">
                   Continuar
                 </button>
               </div>
@@ -128,7 +136,7 @@ Formulario.propTypes = {
   setEstadoFormulario: PropTypes.func.isRequired,
   estadoMetodo: PropTypes.bool.isRequired,
   setEstadoMetodo: PropTypes.func.isRequired,
-  orderID: PropTypes.string.isRequired
+  orderID: PropTypes.string.isRequired,
 };
 
 export default Formulario;
