@@ -12,6 +12,7 @@ import Formulario from './componentes/Formulario';
 import MetodoPago from './componentes/MetodoPago';
 import PaymentResult from './componentes/PaymentResult';
 import WhatsAppButton from './componentes/WhatsAppButton';
+import Numbers from './componentes/Numbers';
 
 function App() {
   const [estadoFormulario, setEstadoFormulario] = useState(false);
@@ -65,36 +66,7 @@ function App() {
             </div>
             <div className="m-2"></div>
             <div className="section-card d-flex flex-wrap justify-content-center px-0 cards">
-              <Cartas
-                cantidad={2}
-                precio={4000}
-                estadoFormulario={estadoFormulario}
-                setEstadoFormulario={setEstadoFormulario}
-                setOrderID={setOrderID}
-                setPrecioProceso={setPrecioProceso}
-                setHash={setHash}
-                setCantidadSeleccionada={setCantidadSeleccionada} // Pasa la función para actualizar la cantidad
-              />
-              <Cartas
-                cantidad={5}
-                precio={10000}
-                estadoFormulario={estadoFormulario}
-                setEstadoFormulario={setEstadoFormulario}
-                setOrderID={setOrderID}
-                setPrecioProceso={setPrecioProceso}
-                setHash={setHash}
-                setCantidadSeleccionada={setCantidadSeleccionada} // Pasa la función para actualizar la cantidad
-              />
-              <Cartas
-                cantidad={10}
-                precio={20000}
-                estadoFormulario={estadoFormulario}
-                setEstadoFormulario={setEstadoFormulario}
-                setOrderID={setOrderID}
-                setPrecioProceso={setPrecioProceso}
-                setHash={setHash}
-                setCantidadSeleccionada={setCantidadSeleccionada} // Pasa la función para actualizar la cantidad
-              />
+              <Numbers />
             </div>
             <Formulario
               estadoFormulario={estadoFormulario}
