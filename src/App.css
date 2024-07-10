@@ -42,6 +42,11 @@
   color: rgb(102 102 102 / var(--tw-text-opacity));
   /* margin-bottom: 50px; */
 }
+.parrafo-num{
+  font-weight: normal;
+  --tw-text-opacity: 1;
+  color: rgb(102 102 102 / var(--tw-text-opacity));
+}
 .contenedor1 p{
   margin-bottom: 50px;
 }
@@ -73,7 +78,7 @@
 }
 
 .section-card {
-  margin: 0 60px 80px;
+  margin: 0 60px 60px;
   padding-left: 0;
   padding-right: 0;
 }

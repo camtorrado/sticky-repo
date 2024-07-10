@@ -1,0 +1,29 @@
+.numeros{
+    border: 2px solid var(--mainBlue);
+    border-radius: 6px;
+    padding: 5px;
+    cursor: pointer;
+}
+.numeros:hover{
+    background-color: #5681f860;
+}
+.numeros-seleccionados{
+    border: 2px solid var(--mainBlue);
+    background-color: var(--mainBlue);
+    color: #fff;
+    border-radius: 6px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+.numeros-seleccionados:hover{
+    background-color: rgba(255, 0, 0, 0.732);
+    border: 2px solid red;
+}
+.contenedor-num{
+    margin: 0 250px;
+}
+@media (max-width: 769px){
+    .contenedor-num{
+        margin: 0;
+    }
+}

@@ -26,11 +26,11 @@
     color: var(--mainBlue);
 }
 .btnComprar{
-    background-color: var(--mainBlue);
+    background-color: rgb(69, 69, 234);
     color: #fff;
     padding: 8px 20px;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     font-weight: bold;
     margin-bottom: 20px;
     transition: all .3s;

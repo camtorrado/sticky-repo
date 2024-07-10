@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import "../Styles/Numbers.css";
 
 const supabaseUrl = process.env.PROJECT_URL;
 const supabaseKey = process.env.API_KEY;
@@ -24,15 +25,29 @@ const shuffleArray = (array) => {
 
 const Numbers = () => {
   const [numbers, setNumbers] = useState([]);
+  const [filteredNumbers, setFilteredNumbers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [numerosSeleccionados, setNumerosSeleccionados] = useState([]);
+  const numerosMin = 2;
+  console.log(numerosSeleccionados);
+  const handleNumberClick = (number) => {
+    if (!numerosSeleccionados.includes(number)) {
+      setNumerosSeleccionados([...numerosSeleccionados, number]);
+    }
+  };
+
+  const handleRemoveNumber = (number) => {
+    setNumerosSeleccionados(numerosSeleccionados.filter((n) => n !== number));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("Starting data fetch from Supabase...");
+      // console.log("Starting data fetch from Supabase...");
 
       const { data, error } = await supabase.from("records").select("number");
 
-      console.log("Data fetch complete.");
+      // console.log("Data fetch complete.");
 
       if (error) {
         console.error("Error fetching data:", error);
@@ -40,7 +55,7 @@ const Numbers = () => {
         return;
       }
 
-      console.log("Fetched data:", data);
+      // console.log("Fetched data:", data);
 
       const validData = data.filter(
         (item) => item.number !== null && item.number !== undefined
@@ -58,30 +73,90 @@ const Numbers = () => {
       const shuffledNumbers = shuffleArray(filteredNumbers);
 
       setNumbers(shuffledNumbers);
+      setFilteredNumbers(shuffledNumbers);
       setLoading(false);
     };
 
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const result = numbers.filter((number) => number.includes(searchTerm));
+    setFilteredNumbers(result);
+  }, [searchTerm, numbers]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className="container mt-4">
-      <div className="row">
-        {numbers.map((number, index) => (
-          <div key={index} className="col-3 col-sm-2 col-md-1">
-            <div className="card mb-3 border border-secondary">
-              <div className="mt-2">
-                <h5 className="card-title text-center">{number}</h5>
+    <>
+      <div className="contenedor-num">
+        <h1 className="text-center fs-1">Elige tu número</h1>
+        <div className="d-flex flex-wrap justify-content-center">
+          {numerosSeleccionados.length > 0 &&
+            numerosSeleccionados.map((number, index) => (
+              <div
+                key={index}
+                className="mx-2"
+                onClick={() => handleRemoveNumber(number)}
+              >
+                <div className="pt-2">
+                  <h5 className="numeros-seleccionados text-center">
+                    {number}
+                  </h5>
+                </div>
+              </div>
+            ))}
+        </div>
+        {numerosSeleccionados.length > 0 && (
+          <p className="text-center fs-5 mt-2 parrafo-num">
+            Para eliminar haz click en el boleto
+          </p>
+        )}
+        {numerosSeleccionados.length > 1 && (
+          <div className="d-flex justify-content-center">
+            <button className="text-center fs-5 btnComprar">Comprar</button>
+          </div>
+        )}
+      </div>
+
+      <div className="container mt-4">
+        <div className="row mb-4">
+          <div className="col-12">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Buscar números"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className="row mb-5">
+          {filteredNumbers.map((number, index) => (
+            <div
+              key={index}
+              className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1"
+            >
+              <div className="mb-2" onClick={() => handleNumberClick(number)}>
+                <div className="pt-2">
+                  <h5
+                    className={`${
+                      numerosSeleccionados.includes(number)
+                        ? "numeros-seleccionados"
+                        : "numeros"
+                    } text-center`}
+                  >
+                    {number}
+                  </h5>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

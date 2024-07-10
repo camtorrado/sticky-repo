@@ -22,19 +22,19 @@ function App() {
   const [hash, setHash] = useState('');
   const [cantidadSeleccionada, setCantidadSeleccionada] = useState(0);
 
-  useEffect(() => {
-    // Deshabilitar el menú contextual
-    const handleContextMenu = (event) => {
-      event.preventDefault();
-    };
+  // useEffect(() => {
+  //   // Deshabilitar el menú contextual
+  //   const handleContextMenu = (event) => {
+  //     event.preventDefault();
+  //   };
 
-    document.addEventListener('contextmenu', handleContextMenu);
+  //   document.addEventListener('contextmenu', handleContextMenu);
 
-    // Limpiar el evento al desmontar el componente
-    return () => {
-      document.removeEventListener('contextmenu', handleContextMenu);
-    };
-  }, []);
+  //   // Limpiar el evento al desmontar el componente
+  //   return () => {
+  //     document.removeEventListener('contextmenu', handleContextMenu);
+  //   };
+  // }, []);
 
   return (
     <Router>
@@ -64,8 +64,7 @@ function App() {
                 </p>
               </div>
             </div>
-            <div className="m-2"></div>
-            <div className="section-card d-flex flex-wrap justify-content-center px-0 cards">
+            <div className="d-flex flex-wrap justify-content-center">
               <Numbers />
             </div>
             <Formulario
