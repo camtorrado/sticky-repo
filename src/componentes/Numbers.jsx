@@ -139,7 +139,7 @@ const Numbers = () => {
               key={index}
               className="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-1"
             >
-              <div className="mb-2" onClick={() => handleNumberClick(number)}>
+              <div className="mb-2" onClick={() => {numerosSeleccionados.includes(number)? (handleRemoveNumber(number)):(handleNumberClick(number))}}>
                 <div className="pt-2">
                   <h5
                     className={`${
