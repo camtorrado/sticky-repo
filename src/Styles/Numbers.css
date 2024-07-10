@@ -1,7 +1,7 @@
 .numeros{
     border: 2px solid var(--mainBlue);
     border-radius: 6px;
-    padding: 5px;
+    padding: 5px 15px;
     cursor: pointer;
 }
 .numeros:hover{
