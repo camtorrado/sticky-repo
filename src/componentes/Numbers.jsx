@@ -55,13 +55,8 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
 
       // console.log("Fetched data:", data);
 
-      const validData = data.filter(
-        (item) => item.number !== null && item.number !== undefined
-      );
-
-      const dbNumbers = validData.map((item) =>
-        item.number.toString().padStart(4, "0")
-      );
+      const validData = data.filter(item => item.number !== null && item.number !== undefined);
+      const dbNumbers = validData.flatMap(item => item.number);
       const allNumbers = generateNumbers();
       const filteredNumbers = allNumbers.filter(
         (number) => !dbNumbers.includes(number)

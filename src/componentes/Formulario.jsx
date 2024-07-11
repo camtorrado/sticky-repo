@@ -3,6 +3,11 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import "../Styles/Formulario.css";
 import Input from "./Input";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.PROJECT_URL;
+const supabaseKey = process.env.API_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Formulario = ({
   estadoFormulario,
@@ -40,30 +45,27 @@ const Formulario = ({
   };
   const handleSubmit = async () => {
     try {
-      let config = {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: nombre,
-          lastName: apellido,
-          phoneNumber: numero,
-          city: ciudad,
-          email: email,
-          quantity: numerosSeleccionados.length,
-          tickets: numerosSeleccionados,
-          transactionstatus: "pending"
-        }),
-      };
-
-      await fetch("https://sticky-api-ten.vercel.app/api/people", config);
-      // let res = await fetch("https://sticky-api-ten.vercel.app/api/people", config)
-      // let json = await res.json();
-      // console.log(json)
+      const { error } = await supabase
+        .from('PeopleRecords')
+        .insert([
+          {
+            name: nombre,
+            lastname: apellido,
+            phonenumber: numero,
+            city: ciudad,
+            email: email,
+            quantity: numerosSeleccionados.length,
+            tickets: numerosSeleccionados,
+            transactionstatus: "pending"
+          }
+        ]);
+  
+      if (error) {
+        throw error;
+      }
+      console.log('Registro insertado con éxito');
     } catch (error) {
-      // console.error(error)
+      console.error('Error al insertar el registro:', error.message);
     }
   };
 
