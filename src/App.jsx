@@ -13,8 +13,8 @@ import Numbers from './componentes/Numbers';
 
 function App() {
   const [estadoFormulario, setEstadoFormulario] = useState(false);
-  const [estadoMetodo, setEstadoMetodo] = useState(false);
   const [numerosSeleccionados, setNumerosSeleccionados] = useState([]);
+  const [reinicio, setReinicio] = useState(false);
 
   // useEffect(() => {
   //   // Deshabilitar el menú contextual
@@ -58,14 +58,15 @@ function App() {
               </div>
             </div>
             <div className="d-flex flex-wrap justify-content-center">
-              <Numbers estadoFormulario={estadoFormulario} setEstadoFormulario={setEstadoFormulario} numerosSeleccionados={numerosSeleccionados} setNumerosSeleccionados={setNumerosSeleccionados} />
+              <Numbers estadoFormulario={estadoFormulario} setEstadoFormulario={setEstadoFormulario} numerosSeleccionados={numerosSeleccionados} setNumerosSeleccionados={setNumerosSeleccionados} reinicio={reinicio} />
             </div>
             <Formulario
               estadoFormulario={estadoFormulario}
               setEstadoFormulario={setEstadoFormulario}
-              estadoMetodo={estadoMetodo}
-              setEstadoMetodo={setEstadoMetodo}
               numerosSeleccionados={numerosSeleccionados}
+              setNumerosSeleccionados={setNumerosSeleccionados}
+              reinicio={reinicio}
+              setReinicio={setReinicio}
             />
             <div id="contacto">
               <Footer />

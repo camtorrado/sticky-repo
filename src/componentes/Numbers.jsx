@@ -23,11 +23,12 @@ const shuffleArray = (array) => {
   return array;
 };
 
-const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, setNumerosSeleccionados }) => {
+const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, setNumerosSeleccionados, reinicio }) => {
   const [numbers, setNumbers] = useState([]);
   const [filteredNumbers, setFilteredNumbers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  console.log(reinicio)
   
   const handleNumberClick = (number) => {
     if (!numerosSeleccionados.includes(number)) {
@@ -41,40 +42,40 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
 
   useEffect(() => {
     const fetchData = async () => {
-      // console.log("Starting data fetch from Supabase...");
-
-      const { data, error } = await supabase.from("records").select("number");
-
-      // console.log("Data fetch complete.");
-
-      if (error) {
-        console.error("Error fetching data:", error);
+      setLoading(true); // Cambiar a true mientras se carga
+  
+      try {
+        const { data, error } = await supabase.from("PeopleRecords").select("tickets");
+  
+        if (error) {
+          console.error("Error fetching data:", error);
+          setLoading(false);
+          return;
+        }
+  
+        const validData = data.filter(item => item.number !== null && item.number !== undefined);
+        const dbNumbers = validData.flatMap(item => item.number);
+        const allNumbers = generateNumbers();
+        const filteredNumbers = allNumbers.filter(number => !dbNumbers.includes(number));
+  
+        // Mezcla los números filtrados
+        const shuffledNumbers = shuffleArray(filteredNumbers);
+  
+        setNumbers(shuffledNumbers);
+        setFilteredNumbers(shuffledNumbers);
         setLoading(false);
-        return;
+      } catch (error) {
+        console.error('Error en la obtención de datos:', error);
+        setLoading(false);
       }
-
-      // console.log("Fetched data:", data);
-
-      const validData = data.filter(item => item.number !== null && item.number !== undefined);
-      const dbNumbers = validData.flatMap(item => item.number);
-      const allNumbers = generateNumbers();
-      const filteredNumbers = allNumbers.filter(
-        (number) => !dbNumbers.includes(number)
-      );
-
-      // Mezcla los números filtrados
-      const shuffledNumbers = shuffleArray(filteredNumbers);
-
-      setNumbers(shuffledNumbers);
-      setFilteredNumbers(shuffledNumbers);
-      setLoading(false);
     };
-
+  
     fetchData();
-  }, []);
-
+  }, [reinicio]);
+  
+  // Filtrar números según el término de búsqueda y actualizar filteredNumbers
   useEffect(() => {
-    const result = numbers.filter((number) => number.includes(searchTerm));
+    const result = numbers.filter(number => number.includes(searchTerm));
     setFilteredNumbers(result);
   }, [searchTerm, numbers]);
 

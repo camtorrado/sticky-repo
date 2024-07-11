@@ -12,9 +12,10 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 const Formulario = ({
   estadoFormulario,
   setEstadoFormulario,
-  estadoMetodo,
-  setEstadoMetodo,
-  numerosSeleccionados
+  numerosSeleccionados,
+  setNumerosSeleccionados,
+  reinicio,
+  setReinicio
 }) => {
   const [nombreValido, setNombreValido] = useState(false);
   const [apellidoValido, setApellidoValido] = useState(false);
@@ -37,35 +38,36 @@ const Formulario = ({
       emailValido &&
       numeroValido
     ) {
-      setEstadoMetodo(!estadoMetodo);
       handleSubmit();
+      setEstadoFormulario(false);
+      setNumerosSeleccionados([]);
+      setReinicio(!reinicio)
     } else {
       alert("Por favor, complete todos los campos correctamente.");
+      setFormularioValido(false);
     }
   };
   const handleSubmit = async () => {
     try {
-      const { error } = await supabase
-        .from('PeopleRecords')
-        .insert([
-          {
-            name: nombre,
-            lastname: apellido,
-            phonenumber: numero,
-            city: ciudad,
-            email: email,
-            quantity: numerosSeleccionados.length,
-            tickets: numerosSeleccionados,
-            transactionstatus: "pending"
-          }
-        ]);
-  
+      const { error } = await supabase.from("PeopleRecords").insert([
+        {
+          name: nombre,
+          lastname: apellido,
+          phonenumber: numero,
+          city: ciudad,
+          email: email,
+          quantity: numerosSeleccionados.length,
+          tickets: numerosSeleccionados,
+          transactionstatus: "pending",
+        },
+      ]);
+
       if (error) {
         throw error;
       }
-      console.log('Registro insertado con éxito');
+      console.log("Registro insertado con éxito");
     } catch (error) {
-      console.error('Error al insertar el registro:', error.message);
+      console.error("Error al insertar el registro:", error.message);
     }
   };
 
@@ -121,7 +123,10 @@ const Formulario = ({
                 >
                   Cancelar
                 </button>
-                <button className="pagar" type="submit">
+                <button
+                  className="pagar"
+                  type="submit"
+                >
                   Continuar
                 </button>
               </div>
@@ -135,8 +140,8 @@ const Formulario = ({
 Formulario.propTypes = {
   estadoFormulario: PropTypes.bool.isRequired,
   setEstadoFormulario: PropTypes.func.isRequired,
-  estadoMetodo: PropTypes.bool.isRequired,
-  setEstadoMetodo: PropTypes.func.isRequired,
+  // estadoMetodo: PropTypes.bool.isRequired,
+  // setEstadoMetodo: PropTypes.func.isRequired,
 };
 
 export default Formulario;
