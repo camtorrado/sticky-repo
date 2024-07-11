@@ -6,21 +6,15 @@ import 'bootstrap/dist/js/bootstrap';
 import imagen from './imagenes/imagen.png';
 import bike from './imagenes/bike.png';
 import Navbar from './componentes/Navbar';
-import Cartas from './componentes/Cartas';
 import Footer from './componentes/Footer';
 import Formulario from './componentes/Formulario';
-import MetodoPago from './componentes/MetodoPago';
-import PaymentResult from './componentes/PaymentResult';
 import WhatsAppButton from './componentes/WhatsAppButton';
 import Numbers from './componentes/Numbers';
 
 function App() {
   const [estadoFormulario, setEstadoFormulario] = useState(false);
   const [estadoMetodo, setEstadoMetodo] = useState(false);
-  const [orderID, setOrderID] = useState('');
-  const [precioProceso, setPrecioProceso] = useState(0);
-  const [hash, setHash] = useState('');
-  const [cantidadSeleccionada, setCantidadSeleccionada] = useState(0);
+  const [numerosSeleccionados, setNumerosSeleccionados] = useState([]);
 
   // useEffect(() => {
   //   // Deshabilitar el menú contextual
@@ -39,7 +33,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/rest" element={<PaymentResult />} />
         <Route path="/" element={
           <>
             <WhatsAppButton />
@@ -65,22 +58,14 @@ function App() {
               </div>
             </div>
             <div className="d-flex flex-wrap justify-content-center">
-              <Numbers />
+              <Numbers estadoFormulario={estadoFormulario} setEstadoFormulario={setEstadoFormulario} numerosSeleccionados={numerosSeleccionados} setNumerosSeleccionados={setNumerosSeleccionados} />
             </div>
             <Formulario
               estadoFormulario={estadoFormulario}
               setEstadoFormulario={setEstadoFormulario}
               estadoMetodo={estadoMetodo}
               setEstadoMetodo={setEstadoMetodo}
-              orderID={orderID}
-              cantidad={cantidadSeleccionada} // Pasa la cantidad seleccionada
-            />
-            <MetodoPago
-              estadoMetodo={estadoMetodo}
-              setEstadoMetodo={setEstadoMetodo}
-              orderID={orderID}
-              precioProceso={precioProceso}
-              hash={hash}
+              numerosSeleccionados={numerosSeleccionados}
             />
             <div id="contacto">
               <Footer />

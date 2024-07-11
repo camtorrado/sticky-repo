@@ -9,8 +9,7 @@ const Formulario = ({
   setEstadoFormulario,
   estadoMetodo,
   setEstadoMetodo,
-  orderID,
-  cantidad,
+  numerosSeleccionados
 }) => {
   const [nombreValido, setNombreValido] = useState(false);
   const [apellidoValido, setApellidoValido] = useState(false);
@@ -39,7 +38,6 @@ const Formulario = ({
       alert("Por favor, complete todos los campos correctamente.");
     }
   };
-
   const handleSubmit = async () => {
     try {
       let config = {
@@ -54,8 +52,9 @@ const Formulario = ({
           phoneNumber: numero,
           city: ciudad,
           email: email,
-          orderId: orderID,
-          quantity: cantidad,
+          quantity: numerosSeleccionados.length,
+          tickets: numerosSeleccionados,
+          transactionstatus: "pending"
         }),
       };
 
@@ -136,7 +135,6 @@ Formulario.propTypes = {
   setEstadoFormulario: PropTypes.func.isRequired,
   estadoMetodo: PropTypes.bool.isRequired,
   setEstadoMetodo: PropTypes.func.isRequired,
-  orderID: PropTypes.string.isRequired,
 };
 
 export default Formulario;

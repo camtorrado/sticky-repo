@@ -23,14 +23,12 @@ const shuffleArray = (array) => {
   return array;
 };
 
-const Numbers = () => {
+const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, setNumerosSeleccionados }) => {
   const [numbers, setNumbers] = useState([]);
   const [filteredNumbers, setFilteredNumbers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  const [numerosSeleccionados, setNumerosSeleccionados] = useState([]);
-  const numerosMin = 2;
-  console.log(numerosSeleccionados);
+  
   const handleNumberClick = (number) => {
     if (!numerosSeleccionados.includes(number)) {
       setNumerosSeleccionados([...numerosSeleccionados, number]);
@@ -116,7 +114,7 @@ const Numbers = () => {
         )}
         {numerosSeleccionados.length > 1 && (
           <div className="d-flex justify-content-center">
-            <button className="text-center fs-5 btnComprar">Comprar</button>
+            <button className="text-center fs-5 btnComprar" onClick={() => {setEstadoFormulario(!estadoFormulario)}} >Comprar</button>
           </div>
         )}
       </div>
