@@ -28,8 +28,7 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
   const [filteredNumbers, setFilteredNumbers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
-  console.log(reinicio)
-  
+
   const handleNumberClick = (number) => {
     if (!numerosSeleccionados.includes(number)) {
       setNumerosSeleccionados([...numerosSeleccionados, number]);
@@ -46,15 +45,14 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
   
       try {
         const { data, error } = await supabase.from("PeopleRecords").select("tickets");
-  
         if (error) {
           console.error("Error fetching data:", error);
           setLoading(false);
           return;
         }
-  
-        const validData = data.filter(item => item.number !== null && item.number !== undefined);
-        const dbNumbers = validData.flatMap(item => item.number);
+
+        // Assuming 'tickets' is an array of numbers
+        const dbNumbers = data.flatMap(item => item.tickets || []);
         const allNumbers = generateNumbers();
         const filteredNumbers = allNumbers.filter(number => !dbNumbers.includes(number));
   
@@ -69,11 +67,10 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, [reinicio]);
   
-  // Filtrar números según el término de búsqueda y actualizar filteredNumbers
   useEffect(() => {
     const result = numbers.filter(number => number.includes(searchTerm));
     setFilteredNumbers(result);

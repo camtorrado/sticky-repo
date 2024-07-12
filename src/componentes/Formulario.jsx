@@ -29,6 +29,15 @@ const Formulario = ({
   const [numero, setNumero] = useState("");
   const [ciudad, setCiudad] = useState("");
 
+  const handleButtonClick = () => {
+    const baseUrl = "https://api.whatsapp.com/send";
+    const phone = "573186347131";
+    const message = `¡Hola! Mi nombre es *${nombre}* me gustaría comprar estos *${numerosSeleccionados.length}* números para el sorteo de la moto Suzuki AX4: *${numerosSeleccionados.join(", ")}*.\n\nMedios de pago:\n\nNequi: *3003051903*\nBancolombia: *83229113545*\nDaviPlata: *3184825383*`;
+
+    const url = `${baseUrl}?phone=${phone}&text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
   const validarEnvio = (event) => {
     event.preventDefault();
     if (
@@ -126,6 +135,7 @@ const Formulario = ({
                 <button
                   className="pagar"
                   type="submit"
+                  onClick={handleButtonClick}
                 >
                   Continuar
                 </button>
