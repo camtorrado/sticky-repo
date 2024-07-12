@@ -28,6 +28,7 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
   const [filteredNumbers, setFilteredNumbers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
+  const [statusChanges, setStatusChanges] = useState(null);
 
   const handleNumberClick = (number) => {
     if (!numerosSeleccionados.includes(number)) {
@@ -39,42 +40,59 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
     setNumerosSeleccionados(numerosSeleccionados.filter((n) => n !== number));
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); // Cambiar a true mientras se carga
-  
-      try {
-        const { data, error } = await supabase.from("PeopleRecords").select("tickets");
-        if (error) {
-          // console.error("Error fetching data:", error);
-          setLoading(false);
-          return;
-        }
-
-        // Assuming 'tickets' is an array of numbers
-        const dbNumbers = data.flatMap(item => item.tickets || []);
-        const allNumbers = generateNumbers();
-        const filteredNumbers = allNumbers.filter(number => !dbNumbers.includes(number));
-  
-        // Mezcla los números filtrados
-        const shuffledNumbers = shuffleArray(filteredNumbers);
-  
-        setNumbers(shuffledNumbers);
-        setFilteredNumbers(shuffledNumbers);
+  const fetchData = async () => {
+    setLoading(true); // Cambiar a true mientras se carga
+    try {
+      const { data, error } = await supabase.from("PeopleRecords").select("tickets");
+      if (error) {
+        // console.error("Error fetching data:", error);
         setLoading(false);
-      } catch (error) {
-        // console.error('Error en la obtención de datos:', error);
-        setLoading(false);
+        return;
       }
-    };
 
+      // Assuming 'tickets' is an array of numbers
+      const dbNumbers = data.flatMap(item => item.tickets || []);
+      const allNumbers = generateNumbers();
+      const filteredNumbers = allNumbers.filter(number => !dbNumbers.includes(number));
+
+      // Mezcla los números filtrados
+      const shuffledNumbers = shuffleArray(filteredNumbers);
+
+      setNumbers(shuffledNumbers);
+      setFilteredNumbers(shuffledNumbers);
+      setLoading(false);
+    } catch (error) {
+      // console.error('Error en la obtención de datos:', error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
-  }, [reinicio]);
-  
+  }, [reinicio, statusChanges]);
+
   useEffect(() => {
     const result = numbers.filter(number => number.includes(searchTerm));
     setFilteredNumbers(result);
   }, [searchTerm, numbers]);
+
+  useEffect(() => {
+    const changes = supabase
+    .channel('schema-db-changes')
+    .on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'PeopleRecords'
+      },
+      (payload) => {
+        // console.log(payload)
+        fetchData();
+      }
+    )
+    .subscribe()
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
