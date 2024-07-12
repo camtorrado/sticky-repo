@@ -74,9 +74,9 @@ const Formulario = ({
       if (error) {
         throw error;
       }
-      console.log("Registro insertado con éxito");
+      // console.log("Registro insertado con éxito");
     } catch (error) {
-      console.error("Error al insertar el registro:", error.message);
+      // console.error("Error al insertar el registro:", error.message);
     }
   };
 

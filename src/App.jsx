@@ -16,19 +16,19 @@ function App() {
   const [numerosSeleccionados, setNumerosSeleccionados] = useState([]);
   const [reinicio, setReinicio] = useState(false);
 
-  // useEffect(() => {
-  //   // Deshabilitar el menú contextual
-  //   const handleContextMenu = (event) => {
-  //     event.preventDefault();
-  //   };
+  useEffect(() => {
+    // Deshabilitar el menú contextual
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
 
-  //   document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('contextmenu', handleContextMenu);
 
-  //   // Limpiar el evento al desmontar el componente
-  //   return () => {
-  //     document.removeEventListener('contextmenu', handleContextMenu);
-  //   };
-  // }, []);
+    // Limpiar el evento al desmontar el componente
+    return () => {
+      document.removeEventListener('contextmenu', handleContextMenu);
+    };
+  }, []);
 
   return (
     <Router>

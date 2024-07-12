@@ -46,7 +46,7 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
       try {
         const { data, error } = await supabase.from("PeopleRecords").select("tickets");
         if (error) {
-          console.error("Error fetching data:", error);
+          // console.error("Error fetching data:", error);
           setLoading(false);
           return;
         }
@@ -63,7 +63,7 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
         setFilteredNumbers(shuffledNumbers);
         setLoading(false);
       } catch (error) {
-        console.error('Error en la obtención de datos:', error);
+        // console.error('Error en la obtención de datos:', error);
         setLoading(false);
       }
     };
