@@ -57,7 +57,6 @@ function Input({ tipo, dato, setFormValid, setValue }) {
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         autoComplete="off"
-        required
         placeholder={`Digite su ${dato.toLowerCase()}...`}
       />
       {focused === true ? (

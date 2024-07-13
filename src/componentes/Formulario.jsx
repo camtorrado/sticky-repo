@@ -42,9 +42,7 @@ const Formulario = ({
     event.preventDefault();
     if (
       nombreValido &&
-      apellidoValido &&
       ciudadValido &&
-      emailValido &&
       numeroValido
     ) {
       handleSubmit();
