@@ -12,10 +12,10 @@ const Footer = () => {
               <h2>Contactanos</h2>
               <p>Norte de Santander, Colombia</p>
               <p>
-                <a href="mailto:betttime09@gmail.com">betttime09@gmail.com</a>
+                <a href="mailto:betttime09@gmail.com">bdanilo.sanchez@gmail.com</a>
               </p>
               <p>
-                ©{new Date().getFullYear()} Sticky by BetTime - All Rights
+                ©{new Date().getFullYear()} Sticky World - All Rights
                 Reserved
               </p>
             </div>
