@@ -123,6 +123,11 @@ const Numbers = ({ estadoFormulario, setEstadoFormulario, numerosSeleccionados, 
             Para eliminar haz click en el boleto
           </p>
         )}
+        {numerosSeleccionados.length < 2 && numerosSeleccionados.length > 0 && (
+          <p className="text-center fs-5 parrafo-num">
+            Minimo 2 numeros para seguir la compra
+          </p>
+        )}
         {numerosSeleccionados.length > 1 && (
           <div className="d-flex justify-content-center">
             <button className="text-center fs-5 btnComprar" onClick={() => {setEstadoFormulario(!estadoFormulario)}} >Comprar</button>

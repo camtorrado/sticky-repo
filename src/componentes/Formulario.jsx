@@ -31,8 +31,8 @@ const Formulario = ({
 
   const handleButtonClick = () => {
     const baseUrl = "https://api.whatsapp.com/send";
-    const phone = "573186347131";
-    const message = `¡Hola! Te saluda *${nombre}*, en este momento me gustaría apartar estos números para el sorteo de la Suzuki AX4 EDICIÓN#1!!!\n\nCantidad de números: ${numerosSeleccionados.length}\nNúmeros: *${numerosSeleccionados.join(", ")}*\n\n*Nombre*: ${nombre}\n*Celular*: ${numero}\n*Email*: ${email}\n\n*SUS NÚMEROS SOLO DURAN*\n*24 HORAS APARTADOS*\n\n*Total a pagar:* $${numerosSeleccionados.length * 2000}\n\n-----------------\n\n*MEDIOS DE PAGO*: \n\n*NEQUI*: *3003051903*\n*PONER SU NOMBRE CUANDO REALICE LA TRANSFERENCIA*\n\n*DAVIPLATA*: *3184825383*\n\n*AHORROS BANCOLOMBIA*: *83229113545*\n\n-----------------\n\nEl siguiente y ultimo paso es enviar foto del comprobante de pago AQUI POR ESTE MEDIO`;
+    const phone = "573002254230";
+    const message = `¡Hola! Te saluda *${nombre}*, en este momento me gustaría apartar estos números para el sorteo del Iphone 15 pro 256GB + AirPods 3!!!\n\nCantidad de números: ${numerosSeleccionados.length}\nNúmeros: *${numerosSeleccionados.join(", ")}*\n\n*Nombre*: ${nombre}\n*Celular*: ${numero}\n*Email*: ${email}\n\n*SUS NÚMEROS SOLO DURAN*\n*24 HORAS APARTADOS*\n\n*Total a pagar:* $${numerosSeleccionados.length * 2000}\n\n-----------------\n\n*MEDIOS DE PAGO*: \n\n*NEQUI*: *3002254230*\n*PONER SU NOMBRE CUANDO REALICE LA TRANSFERENCIA*\n\n`;
 
     const url = `${baseUrl}?phone=${phone}&text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
@@ -56,7 +56,7 @@ const Formulario = ({
   };
   const handleSubmit = async () => {
     try {
-      const { error } = await supabase.from("PeopleRecords").insert([
+      const { error } = await supabase.from("PeopleRecords").insert([ 
         {
           name: nombre,
           lastname: apellido,
